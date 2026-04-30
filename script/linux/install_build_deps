@@ -62,5 +62,15 @@ fi
 # Install Rust.
 "$PWD"/script/install_rust
 
+# JS workspaces (e.g. `crates/command-signatures-v2/js`) declare `packageManager: "yarn@4.x"`.
+# Without Corepack, `yarn` from apt is often Yarn 1 and `cargo clippy` / build scripts fail.
+if command -v corepack >/dev/null 2>&1; then
+  echo "⬆️  Enabling Corepack for Yarn (matches packageManager in JS workspaces)..."
+  corepack enable
+  corepack prepare yarn@4.0.1 --activate
+else
+  echo -e "⚠️  ${red}corepack not found (install Node.js 16.9+). Yarn 4 may be required to build some crates.${reset}"
+fi
+
 # Install various build-time dependencies through cargo.
 "$PWD"/script/install_cargo_build_deps

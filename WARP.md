@@ -41,6 +41,8 @@ Environment variables:
 - `./script/install_cargo_build_deps` - Install Cargo build dependencies
 - `./script/install_cargo_test_deps` - Install Cargo test dependencies
 
+On Linux, `./script/bootstrap` installs `protoc`, enables **Corepack**, and activates **Yarn 4** so `crates/command-signatures-v2` (and other `packageManager: "yarn@4.x"` workspaces) build correctly. If you skip bootstrap, run `corepack enable` and `corepack prepare yarn@4.0.1 --activate` once so `yarn` is not Yarn 1 from an older global install.
+
 ## Architecture Overview
 
 This is a Rust-based terminal emulator with a custom UI framework called **WarpUI**.
